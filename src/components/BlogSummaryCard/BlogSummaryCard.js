@@ -6,17 +6,9 @@ import Card from '@/components/Card';
 
 import styles from './BlogSummaryCard.module.css';
 
-function BlogSummaryCard({
-  slug,
-  title,
-  publishedOn,
-  abstract,
-}) {
+function BlogSummaryCard({ slug, title, publishedOn, abstract }) {
   const href = `/${slug}`;
-  const humanizedDate = format(
-    new Date(publishedOn),
-    'MMMM do, yyyy'
-  );
+  const humanizedDate = format(new Date(publishedOn), 'MMMM do, yyyy');
 
   return (
     <Card className={styles.wrapper}>
@@ -26,12 +18,8 @@ function BlogSummaryCard({
       <time dateTime={publishedOn}>{humanizedDate}</time>
       <p>
         {abstract}{' '}
-        <Link
-          href={href}
-          className={styles.continueReadingLink}
-        >
-          Continue reading{' '}
-          <span className={styles.arrow}>→</span>
+        <Link href={href} className={styles.continueReadingLink}>
+          Continue reading <span className={styles.arrow}>→</span>
         </Link>
       </p>
     </Card>

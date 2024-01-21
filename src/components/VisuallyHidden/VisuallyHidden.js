@@ -10,10 +10,7 @@ function VisuallyHidden({
   ...delegated
 }) {
   return (
-    <Element
-      className={clsx(styles.wrapper, className)}
-      {...delegated}
-    >
+    <Element className={clsx(styles.wrapper, className)} {...delegated}>
       {children}
     </Element>
   );
