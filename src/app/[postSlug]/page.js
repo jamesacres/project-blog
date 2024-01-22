@@ -6,11 +6,23 @@ import { loadBlogPost } from '@/helpers/file-helpers';
 
 import styles from './postSlug.module.css';
 
+const blogPost = React.cache((slug) => loadBlogPost(slug));
+
+export const generateMetadata = async ({ params }) => {
+  const {
+    frontmatter: { title, abstract },
+  } = await blogPost(params.postSlug);
+  return {
+    title,
+    description: abstract,
+  };
+};
+
 async function BlogPost({ params }) {
   const {
     content,
     frontmatter: { title, publishedOn },
-  } = await loadBlogPost(params.postSlug);
+  } = await blogPost(params.postSlug);
   return (
     <article className={styles.wrapper}>
       <BlogHero title={title} publishedOn={new Date(publishedOn)} />
