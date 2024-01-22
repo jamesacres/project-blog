@@ -7,6 +7,9 @@ import CodeSnippet from '@/components/CodeSnippet';
 const DivisionGroupsDemo = dynamic(
   () => import('@/components/DivisionGroupsDemo')
 );
+const CircularColorsDemo = dynamic(
+  () => import('@/components/CircularColorsDemo')
+);
 
 import styles from './postSlug.module.css';
 import dynamic from 'next/dynamic';
@@ -36,6 +39,7 @@ async function BlogPost({ params }) {
           source={content}
           components={{
             DivisionGroupsDemo,
+            CircularColorsDemo,
             pre: CodeSnippet,
           }}
         />
