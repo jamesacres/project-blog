@@ -5,6 +5,7 @@ import BlogHero from '@/components/BlogHero';
 import { loadBlogPost } from '@/helpers/file-helpers';
 
 import styles from './postSlug.module.css';
+import CodeSnippet from '@/components/CodeSnippet';
 
 const blogPost = React.cache((slug) => loadBlogPost(slug));
 
@@ -27,7 +28,7 @@ async function BlogPost({ params }) {
     <article className={styles.wrapper}>
       <BlogHero title={title} publishedOn={new Date(publishedOn)} />
       <div className={styles.page}>
-        <MDXRemote source={content} />
+        <MDXRemote source={content} components={{ pre: CodeSnippet }} />
       </div>
     </article>
   );
