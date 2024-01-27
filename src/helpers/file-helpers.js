@@ -22,7 +22,13 @@ export async function getBlogPostList() {
 }
 
 export async function loadBlogPost(slug) {
-  const rawContent = await readFile(`/content/${slug}.mdx`);
+  const rawContent = await readFile(`/content/${slug}.mdx`).catch((e) => {
+    console.warn(e);
+    return undefined;
+  });
+  if (!rawContent) {
+    return;
+  }
 
   const { data: frontmatter, content } = matter(rawContent);
 

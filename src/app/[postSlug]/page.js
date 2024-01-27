@@ -13,24 +13,32 @@ const CircularColorsDemo = dynamic(
 
 import styles from './postSlug.module.css';
 import dynamic from 'next/dynamic';
+import { notFound } from 'next/navigation';
 
 const blogPost = React.cache((slug) => loadBlogPost(slug));
 
 export const generateMetadata = async ({ params }) => {
-  const {
-    frontmatter: { title, abstract },
-  } = await blogPost(params.postSlug);
-  return {
-    title,
-    description: abstract,
-  };
+  const post = await blogPost(params.postSlug);
+  if (post) {
+    const {
+      frontmatter: { title, abstract },
+    } = post;
+    return {
+      title,
+      description: abstract,
+    };
+  }
 };
 
 async function BlogPost({ params }) {
+  const post = await blogPost(params.postSlug);
+  if (!post) {
+    return notFound();
+  }
   const {
     content,
     frontmatter: { title, publishedOn },
-  } = await blogPost(params.postSlug);
+  } = post;
   return (
     <article className={styles.wrapper}>
       <BlogHero title={title} publishedOn={new Date(publishedOn)} />
