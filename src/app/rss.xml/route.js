@@ -1,3 +1,4 @@
+import { BLOG_TITLE } from '@/constants';
 import { getBlogPostList } from '@/helpers/file-helpers';
 import { NextResponse } from 'next/server';
 import RSS from 'rss';
@@ -7,7 +8,7 @@ export async function GET(request) {
   const feed = new RSS({
     feed_url: url.toString(),
     site_url: `${url.protocol}//${url.host}`,
-    title: 'Project Blog',
+    title: BLOG_TITLE,
   });
   const blogPosts = await getBlogPostList();
   blogPosts.map(({ slug, title, abstract, publishedOn }) =>
